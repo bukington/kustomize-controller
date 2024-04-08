@@ -368,6 +368,7 @@ func TestKustomizationReconciler_VarsubNumberBool(t *testing.T) {
 			{
 				Name: "service-account.yaml",
 				Body: fmt.Sprintf(`
+---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -379,6 +380,23 @@ metadata:
   annotations:
     id: ${q}${number}${q}
     enabled: ${q}${boolean}${q}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: %[1]s
+  namespace: %[1]s
+data:
+  test: |
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at
+    nisl sem. Nullam nec dui ipsum. Nam vehicula volutpat ipsum, ac fringilla
+    nisl convallis sed. Aliquam porttitor turpis finibus, finibus velit ut,
+    imperdiet mauris. Cras nec neque nulla. Maecenas semper nulla et elit
+    dictum sagittis. Quisque tincidunt non diam non ullamcorper. Curabitur
+    pretium urna odio, vitae ullamcorper purus mollis sit amet. Nam ac lectus
+    ac arcu varius feugiat id fringilla massa.
+
+    \?
 `, name),
 			},
 		}
